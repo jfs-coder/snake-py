@@ -1,6 +1,5 @@
 # Snake Tutorial Python (Tech with Tim)
 # Version 0.1
-# Bookmark: Video 3 @ 5m48s
 import math
 import random
 import pygame
@@ -10,7 +9,7 @@ from tkinter import messagebox
 class cube(object):
     rows = 20
     w = 500
-    def __init_(self, start, dirnx=1, dirny = 0, color = (255,0, 0)):
+    def __init__(self, start, dirnx=1, dirny = 0, color = (255,0, 0)):
         self.pos = start
         self.dirnx = 1
         self.dirny = 0
@@ -32,7 +31,7 @@ class cube(object):
             radius = 3
             circleMiddle = (i * dis + center - radius, j * dis + 8)
             circleMiddle2 = (i * dis + dis - radius * 2, j * dis + 8)
-            pygame.draw.circle(surface, (0,0.0), circleMiddle, radius)
+            pygame.draw.circle(surface, (0,0,0), circleMiddle, radius)
             pygame.draw.circle(surface, (0,0,0), circleMiddle2, radius)
 
 
