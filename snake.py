@@ -1,6 +1,6 @@
 # Snake Tutorial Python (Tech with Tim)
 # Version 0.1
-
+# Bookmark: Video 3 @ 5m48s
 import math
 import random
 import pygame
@@ -8,16 +8,33 @@ import tkinter as tk
 from tkinter import messagebox
 
 class cube(object):
-    rows = 0
-    w = 0
+    rows = 200
+    w = 500
     def __init_(self, start, dirnx=1, dirny = 0, color = (255,0, 0)):
-        pass
+        self.pos = start
+        self.dirnx = 1
+        self.dirny = 0
+        self.color = color
 
     def move(self, dirnx, dirny):
-        pass
+        self.dirnx = dirnx
+        self.dirny = dirny
+        self.pos = (self.pos[0] + self.dirnx, self.pos[1] + self.dirny)
 
     def draw(self, surface, eyes=False):
-        pass
+        dis = self.w // self.rows
+        i = self.pos[0]
+        j = self.pos[1]
+
+        pygame.draw.rect(surface, self.color, (i*dis+1, j*dis+1, dis-2, dis-2))
+        if eyes:
+            center = dis // 2
+            radius = 3
+            circleMiddle = (i*dis + center-radius, j*dis+8)
+            circleMiddle2 = (i * dis + dis - radius*2, j*dis+8)
+            pygame.draw.circle(surface, (0,0.0), circleMiddle, radius)
+            pygame.draw.circle(surface, (0,0,0), circleMiddle2, radius)
+
 
 class snake(object):
     body = []
@@ -57,7 +74,7 @@ class snake(object):
 
         for i, c in enumerate(self.body):
             p = c.pos[:]
-            if p in self.turns
+            if p in self.turns:
                 turn = self.turns[p]
                 c.move(turn[0], turn[1])
                 if i == len(self.body) - 1:
@@ -96,8 +113,9 @@ def drawGrid(w, rows, surface):
         pygame.draw.line(surface, (255,255,255), (0,y), (w,y))
 
 def redrawWindow(surface):
-    global rows, width
+    global rows, width, s
     surface.fill((0,0,0))
+    s.draw(surface)
     drawGrid(width, rows, surface)
     pygame.display.update()
    
@@ -108,11 +126,11 @@ def message_box(subject, content):
     pass
 
 def main():
-    global width, rows, height
+    global width, rows, height, s
     width =  500
     height = 500
     rows = 20
-    surface = pygame.display.set_mode((width, height))
+    win = pygame.display.set_mode((width, height))
     s = snake((255, 0, 0), (10,10))
     flag = True
 
@@ -121,6 +139,7 @@ def main():
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
-        redrawWindow(surface)
+        s.move()
+        redrawWindow(win)
 
 main()
