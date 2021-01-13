@@ -30,8 +30,8 @@ class cube(object):
         if eyes:
             center = dis // 2
             radius = 3
-            circleMiddle = (i*dis + center-radius, j*dis+8)
-            circleMiddle2 = (i * dis + dis - radius*2, j*dis+8)
+            circleMiddle = (i * dis + center - radius, j * dis + 8)
+            circleMiddle2 = (i * dis + dis - radius * 2, j * dis + 8)
             pygame.draw.circle(surface, (0,0.0), circleMiddle, radius)
             pygame.draw.circle(surface, (0,0,0), circleMiddle2, radius)
 
@@ -78,7 +78,7 @@ class snake(object):
                 turn = self.turns[p]
                 c.move(turn[0], turn[1])
                 if i == len(self.body) - 1:
-                    self.turns.pop()
+                    self.turns.pop(p)
 
             else:
                 if c.dirnx == -1 and c.pos[0] <= 0: c.pos = (c.rows-1, c.pos[1])
@@ -123,7 +123,7 @@ def drawGrid(w, rows, surface):
 
     x = 0
     y = 0
-    for i in range(rows):
+    for l in range(rows):
         x = x + sizeBtwn
         y = y + sizeBtwn
 
@@ -138,7 +138,7 @@ def redrawWindow(surface):
     drawGrid(width, rows, surface)
     pygame.display.update()
    
-def randomSnack(rows, items):
+def randomSnack(rows, item):
     positions = item.body
     
     while True:
@@ -152,7 +152,7 @@ def randomSnack(rows, items):
 
 
 def message_box(subject, content):
-    root.tk.Tk()
+    root = tk.Tk()
     root.attributes("-topmost", True)
     root.withdraw()
     messagebox.showinfo(subject, content)
@@ -162,11 +162,10 @@ def message_box(subject, content):
         pass
 
 def main():
-    global width, rows, height, s, snack
+    global width, rows, s, snack
     width =  500
-    height = 500
     rows = 20
-    win = pygame.display.set_mode((width, height))
+    win = pygame.display.set_mode((width, width))
     s = snake((255, 0, 0), (10,10))
     snack = cube(randomSnack(rows, s), color = (0,255,0))
     flag = True
